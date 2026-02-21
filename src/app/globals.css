@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+    font-family: 'ITC Benguiat Std';
+    src: url('/font/BenguiatStd-BoldItalic.eot');
+    src: local('ITC Benguiat Std Bold Italic'), local('BenguiatStd-BoldItalic'),
+        url('/font/BenguiatStd-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('/font/BenguiatStd-BoldItalic.woff2') format('woff2'),
+        url('/font/BenguiatStd-BoldItalic.woff') format('woff'),
+        url('/font/BenguiatStd-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Benguiat Std';
+    src: url('/font/BenguiatStd-MediumItalic.eot');
+    src: local('ITC Benguiat Std Medium Italic'), local('BenguiatStd-MediumItalic'),
+        url('/font/BenguiatStd-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('/font/BenguiatStd-MediumItalic.woff2') format('woff2'),
+        url('/font/BenguiatStd-MediumItalic.woff') format('woff'),
+        url('/font/BenguiatStd-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Benguiat Std';
+    src: url('/font/BenguiatStd-BookItalic.eot');
+    src: local('ITC Benguiat Std Book Italic'), local('BenguiatStd-BookItalic'),
+        url('/font/BenguiatStd-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('/font/BenguiatStd-BookItalic.woff2') format('woff2'),
+        url('/font/BenguiatStd-BookItalic.woff') format('woff'),
+        url('/font/BenguiatStd-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Benguiat Std';
+    src: url('/font/BenguiatStd-Medium.eot');
+    src: local('ITC Benguiat Std Medium'), local('BenguiatStd-Medium'),
+        url('/font/BenguiatStd-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/font/BenguiatStd-Medium.woff2') format('woff2'),
+        url('/font/BenguiatStd-Medium.woff') format('woff'),
+        url('/font/BenguiatStd-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Benguiat Std';
+    src: url('/font/BenguiatStd-Book.eot');
+    src: local('ITC Benguiat Std Book'), local('BenguiatStd-Book'),
+        url('/font/BenguiatStd-Book.eot?#iefix') format('embedded-opentype'),
+        url('/font/BenguiatStd-Book.woff2') format('woff2'),
+        url('/font/BenguiatStd-Book.woff') format('woff'),
+        url('/font/BenguiatStd-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Benguiat Std';
+    src: url('/font/BenguiatStd-Bold.eot');
+    src: local('ITC Benguiat Std Bold'), local('BenguiatStd-Bold'),
+        url('/font/BenguiatStd-Bold.eot?#iefix') format('embedded-opentype'),
+        url('/font/BenguiatStd-Bold.woff2') format('woff2'),
+        url('/font/BenguiatStd-Bold.woff') format('woff'),
+        url('/font/BenguiatStd-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
