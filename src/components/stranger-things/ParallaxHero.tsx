@@ -71,6 +71,7 @@ export function ParallaxHero() {
         });
 
         gsap.to(fgRef.current, {
+            xPercent: -50, // Keep centered while animating x
             x: x * 30,
             y: 10 + y * 20, // 10 is the base translate-y-10
             duration: 1.5,
@@ -96,8 +97,9 @@ export function ParallaxHero() {
     useGSAP(() => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-        // Hide elements initially
-        gsap.set([brandingRef.current, countdownRef.current, navLogoRef.current, abesitLogoRef.current, fgRef.current], { opacity: 0 });
+        // Hide elements initially and set xPercent for fgRef
+        gsap.set([brandingRef.current, countdownRef.current, navLogoRef.current, abesitLogoRef.current], { opacity: 0 });
+        gsap.set(fgRef.current, { opacity: 0, xPercent: -50 });
 
         tl.fromTo(brandingRef.current,
             { opacity: 0, scale: 1.5, y: 50 },
@@ -156,7 +158,7 @@ export function ParallaxHero() {
             {/* Tree Layers - Hidden on mobile to clear view */}
             <div
                 ref={leftTreesRef}
-                className="hidden md:block absolute inset-y-0 left-0 h-full z-[5] pointer-events-none"
+                className="hidden md:block absolute inset-y-0 left-0 h-full z-5 pointer-events-none"
                 style={{ transform: 'translateX(-35%)' }}
             >
                 <img
@@ -168,7 +170,7 @@ export function ParallaxHero() {
 
             <div
                 ref={rightTreesRef}
-                className="hidden md:block absolute inset-y-0 right-0 h-full z-[5] pointer-events-none"
+                className="hidden md:block absolute inset-y-0 right-0 h-full z-5 pointer-events-none"
                 style={{ transform: 'translateX(35%)' }}
             >
                 <img
@@ -179,13 +181,13 @@ export function ParallaxHero() {
             </div>
 
             {/* Foreground Kids - Responsive scaling and padding to avoid timer overlap */}
-            <div className="absolute inset-x-0 bottom-[-20px] md:bottom-0 flex justify-center z-10 pointer-events-none">
+            <div className="absolute inset-x-0 bottom-[-20px] md:bottom-0 w-full z-10 pointer-events-none">
                 {/* Foreground elements */}
                 <img
                     ref={fgRef}
                     src="/assets/images/strange-kids.png"
                     alt="Characters"
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-auto min-w-[150%] md:min-w-0 z-20 pointer-events-none translate-y-10"
+                    className="absolute bottom-0 left-1/2 w-full h-auto min-w-[150%] md:min-w-0 z-20 pointer-events-none translate-y-10"
                 />
             </div>
 
@@ -198,7 +200,7 @@ export function ParallaxHero() {
                     data-cursor-flip="true"
                     src="/website_logo_final.png"
                     alt="Website Logo"
-                    className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] md:w-1/3 md:max-w-[800px] min-w-[250px] object-contain opacity-60 pointer-events-auto"
+                    className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] md:w-1/3 md:max-w-200 min-w-[250px] object-contain opacity-60 pointer-events-auto"
                 />
             </div>
 
