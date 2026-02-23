@@ -10,6 +10,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* ✅ Benguiat design token (Tailwind v4 way) */
+  --font-benguiat: "ITC Benguiat Std", serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,14 +28,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ✅ Correct font registrations */
+
 @font-face {
     font-family: 'ITC Benguiat Std';
     src: url('/font/BenguiatStd-BoldItalic.eot');
-    src: local('ITC Benguiat Std Bold Italic'), local('BenguiatStd-BoldItalic'),
-        url('/font/BenguiatStd-BoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('/font/BenguiatStd-BoldItalic.woff2') format('woff2'),
-        url('/font/BenguiatStd-BoldItalic.woff') format('woff'),
-        url('/font/BenguiatStd-BoldItalic.ttf') format('truetype');
+    src: local('ITC Benguiat Std Bold Italic'),
+         local('BenguiatStd-BoldItalic'),
+         url('/font/BenguiatStd-BoldItalic.eot?#iefix') format('embedded-opentype'),
+         url('/font/BenguiatStd-BoldItalic.woff2') format('woff2'),
+         url('/font/BenguiatStd-BoldItalic.woff') format('woff'),
+         url('/font/BenguiatStd-BoldItalic.ttf') format('truetype');
     font-weight: bold;
     font-style: italic;
     font-display: swap;
@@ -41,11 +47,12 @@ body {
 @font-face {
     font-family: 'ITC Benguiat Std';
     src: url('/font/BenguiatStd-MediumItalic.eot');
-    src: local('ITC Benguiat Std Medium Italic'), local('BenguiatStd-MediumItalic'),
-        url('/font/BenguiatStd-MediumItalic.eot?#iefix') format('embedded-opentype'),
-        url('/font/BenguiatStd-MediumItalic.woff2') format('woff2'),
-        url('/font/BenguiatStd-MediumItalic.woff') format('woff'),
-        url('/font/BenguiatStd-MediumItalic.ttf') format('truetype');
+    src: local('ITC Benguiat Std Medium Italic'),
+         local('BenguiatStd-MediumItalic'),
+         url('/font/BenguiatStd-MediumItalic.eot?#iefix') format('embedded-opentype'),
+         url('/font/BenguiatStd-MediumItalic.woff2') format('woff2'),
+         url('/font/BenguiatStd-MediumItalic.woff') format('woff'),
+         url('/font/BenguiatStd-MediumItalic.ttf') format('truetype');
     font-weight: 500;
     font-style: italic;
     font-display: swap;
@@ -54,11 +61,12 @@ body {
 @font-face {
     font-family: 'ITC Benguiat Std';
     src: url('/font/BenguiatStd-BookItalic.eot');
-    src: local('ITC Benguiat Std Book Italic'), local('BenguiatStd-BookItalic'),
-        url('/font/BenguiatStd-BookItalic.eot?#iefix') format('embedded-opentype'),
-        url('/font/BenguiatStd-BookItalic.woff2') format('woff2'),
-        url('/font/BenguiatStd-BookItalic.woff') format('woff'),
-        url('/font/BenguiatStd-BookItalic.ttf') format('truetype');
+    src: local('ITC Benguiat Std Book Italic'),
+         local('BenguiatStd-BookItalic'),
+         url('/font/BenguiatStd-BookItalic.eot?#iefix') format('embedded-opentype'),
+         url('/font/BenguiatStd-BookItalic.woff2') format('woff2'),
+         url('/font/BenguiatStd-BookItalic.woff') format('woff'),
+         url('/font/BenguiatStd-BookItalic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
@@ -67,11 +75,12 @@ body {
 @font-face {
     font-family: 'ITC Benguiat Std';
     src: url('/font/BenguiatStd-Medium.eot');
-    src: local('ITC Benguiat Std Medium'), local('BenguiatStd-Medium'),
-        url('/font/BenguiatStd-Medium.eot?#iefix') format('embedded-opentype'),
-        url('/font/BenguiatStd-Medium.woff2') format('woff2'),
-        url('/font/BenguiatStd-Medium.woff') format('woff'),
-        url('/font/BenguiatStd-Medium.ttf') format('truetype');
+    src: local('ITC Benguiat Std Medium'),
+         local('BenguiatStd-Medium'),
+         url('/font/BenguiatStd-Medium.eot?#iefix') format('embedded-opentype'),
+         url('/font/BenguiatStd-Medium.woff2') format('woff2'),
+         url('/font/BenguiatStd-Medium.woff') format('woff'),
+         url('/font/BenguiatStd-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -80,11 +89,12 @@ body {
 @font-face {
     font-family: 'ITC Benguiat Std';
     src: url('/font/BenguiatStd-Book.eot');
-    src: local('ITC Benguiat Std Book'), local('BenguiatStd-Book'),
-        url('/font/BenguiatStd-Book.eot?#iefix') format('embedded-opentype'),
-        url('/font/BenguiatStd-Book.woff2') format('woff2'),
-        url('/font/BenguiatStd-Book.woff') format('woff'),
-        url('/font/BenguiatStd-Book.ttf') format('truetype');
+    src: local('ITC Benguiat Std Book'),
+         local('BenguiatStd-Book'),
+         url('/font/BenguiatStd-Book.eot?#iefix') format('embedded-opentype'),
+         url('/font/BenguiatStd-Book.woff2') format('woff2'),
+         url('/font/BenguiatStd-Book.woff') format('woff'),
+         url('/font/BenguiatStd-Book.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -93,14 +103,46 @@ body {
 @font-face {
     font-family: 'ITC Benguiat Std';
     src: url('/font/BenguiatStd-Bold.eot');
-    src: local('ITC Benguiat Std Bold'), local('BenguiatStd-Bold'),
-        url('/font/BenguiatStd-Bold.eot?#iefix') format('embedded-opentype'),
-        url('/font/BenguiatStd-Bold.woff2') format('woff2'),
-        url('/font/BenguiatStd-Bold.woff') format('woff'),
-        url('/font/BenguiatStd-Bold.ttf') format('truetype');
+    src: local('ITC Benguiat Std Bold'),
+         local('BenguiatStd-Bold'),
+         url('/font/BenguiatStd-Bold.eot?#iefix') format('embedded-opentype'),
+         url('/font/BenguiatStd-Bold.woff2') format('woff2'),
+         url('/font/BenguiatStd-Bold.woff') format('woff'),
+         url('/font/BenguiatStd-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
+/* ✅ Optional Tailwind utility (clean class usage) */
 
+@utility font-benguiat {
+  font-family: var(--font-benguiat);
+}
+
+
+.hero-btn {
+  position: relative;
+  padding: 12px 26px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: white;
+  background: transparent;
+  border: 1px solid rgba(255, 0, 0, 0.6);
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+  transition: all 0.35s ease;
+}
+
+.hero-btn:hover {
+  background: rgba(255, 0, 0, 0.15);
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.4),
+    inset 0 0 6px rgba(255, 0, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+.hero-btn:active {
+  transform: translateY(0px);
+}
