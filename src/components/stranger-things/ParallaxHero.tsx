@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,7 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { Navbar } from "./Navbar";
 import { CountdownTimer } from "./CountdownTimer";
 import { CustomCursor } from "./CustomCursor";
-import DevfolioButton from "./DevfolioButton";
+import DevfolioButton from "./HeroButton";
+import CustomButton from "./HeroButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,21 +83,21 @@ export function ParallaxHero() {
             { opacity: 0, y: 40 },
             { opacity: 1, y: 0, duration: 1.5, delay: 0.3 }
         )
-        .fromTo([navLogoRef.current, abesitLogoRef.current],
-            { opacity: 0, y: -20 },
-            { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
-            "-=1"
-        )
-        .fromTo(fgRef.current,
-            { opacity: 0, y: 100 },
-            { opacity: 1, y: 0, duration: 1.2 },
-            "-=0.8"
-        )
-        .fromTo(countdownRef.current,
-            { opacity: 0, x: 50 },
-            { opacity: 1, x: 0, duration: 1 },
-            "-=0.8"
-        );
+            .fromTo([navLogoRef.current, abesitLogoRef.current],
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
+                "-=1"
+            )
+            .fromTo(fgRef.current,
+                { opacity: 0, y: 100 },
+                { opacity: 1, y: 0, duration: 1.2 },
+                "-=0.8"
+            )
+            .fromTo(countdownRef.current,
+                { opacity: 0, x: 50 },
+                { opacity: 1, x: 0, duration: 1 },
+                "-=0.8"
+            );
     }, { scope: containerRef });
 
     return (
@@ -152,10 +152,23 @@ export function ParallaxHero() {
                     <p className="text-gray-300 mt-4 text-lg md:text-xl" style={{ fontFamily: "ITC Benguiat Std" }}>
                         Hacknovate 7.0 • 30-Hour National Hackathon
                     </p>
-
                     <div className="flex gap-4 mt-10 justify-center md:justify-start">
-                        <button className="hero-btn">Join Discord</button>
-                        <DevfolioButton/>
+                        <CustomButton
+                            link="https://discord.com/invite/qxFmdeYCT"
+                            imageSrc="discord-logo.svg"
+                            buttonText="Join Discord"
+                            width="220px"
+                            iconSize="28px"
+                            applyInvert={false}
+                        />
+                        <CustomButton
+                            link="https://hacknovate07.devfolio.co/overview"
+                            imageSrc="devfolio.png"
+                            buttonText="Apply with Devfolio"
+                            width="270px"
+                            iconSize="40px"
+                            applyInvert={true}
+                        />
                     </div>
 
                     {/* MOBILE TIMER */}
