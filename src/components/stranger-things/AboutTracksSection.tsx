@@ -1,10 +1,21 @@
 'use client';
 
 import { useRef } from 'react';
+import localFont from 'next/font/local';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
+
+const trackFont = localFont({
+  src: [
+    { path: '../../../public/font/BenguiatStd-Bold.woff2', weight: '700', style: 'normal' },
+    { path: '../../../public/font/BenguiatStd-Bold.woff', weight: '700', style: 'normal' },
+    { path: '../../../public/font/BenguiatStd-Bold.ttf', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-track',
+  display: 'swap',
+});
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -159,7 +170,7 @@ export function AboutTracksSection() {
 
         {/* Page Title */}
         <div className="absolute top-36 left-0 w-full z-40 px-6 md:px-12 pointer-events-none">
-          <h2 className="text-red-700 text-3xl md:text-5xl font-extrabold uppercase tracking-wider">
+          <h2 className={`${trackFont.className} text-red-700 text-3xl md:text-5xl font-extrabold uppercase tracking-wider`}>
             Innovation Tracks
           </h2>
         </div>
@@ -180,7 +191,7 @@ export function AboutTracksSection() {
               >
                 {/* Text Content — bottom-left, flush like jaquier.dev */}
                 <div className="w-full md:w-3/5 flex flex-col justify-end text-left z-30 pb-4">
-                  <h1 className="text-white font-bold text-2xl md:text-4xl leading-tight mb-3 tracking-wide uppercase">
+                  <h1 className={`${trackFont.className} text-white font-bold text-2xl md:text-4xl leading-tight mb-3 tracking-wide uppercase`}>
                     {track.title}
                   </h1>
                   <p className="text-gray-300/90 text-sm md:text-base leading-relaxed max-w-2xl">
