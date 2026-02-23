@@ -1,5 +1,6 @@
 import { ParallaxHero } from "@/components/stranger-things/ParallaxHero";
 import { TrailerReveal } from "@/components/stranger-things/TrailerReveal";
+import { AboutTracksSection } from "@/components/stranger-things/AboutTracksSection";
 import { AudioToggle } from "@/components/shared/AudioToggle";
 
 export default function Home() {
@@ -10,6 +11,8 @@ export default function Home() {
       <div className="relative z-10 bg-black">
         {/* The TrailerReveal component now handles its own internal spacing and pins itself */}
         <TrailerReveal />
+
+        <AboutTracksSection />
 
         <section className="h-screen bg-black flex items-center justify-center border-t border-white/5">
           <div className="text-center space-y-4">
