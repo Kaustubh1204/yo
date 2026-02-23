@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { Navbar } from "./Navbar";
 import { CountdownTimer } from "./CountdownTimer";
 import { CustomCursor } from "./CustomCursor";
+import DevfolioButton from "./DevfolioButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -154,7 +155,7 @@ export function ParallaxHero() {
 
                     <div className="flex gap-4 mt-10 justify-center md:justify-start">
                         <button className="hero-btn">Join Discord</button>
-                        <button className="hero-btn">Devfolio</button>
+                        <DevfolioButton/>
                     </div>
 
                     {/* MOBILE TIMER */}
