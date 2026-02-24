@@ -10,7 +10,8 @@ export default function CustomButton({
   fontSize = "18px",
   iconSize = "32px", 
   borderRadius = "6px",
-  applyInvert = false 
+  applyInvert = false,
+  gap = "4px"
 }) {
   const [mounted, setMounted] = useState(false);
 
@@ -29,7 +30,7 @@ export default function CustomButton({
     >
       <button 
         className="
-          group flex items-center justify-center gap-3
+          group flex items-center justify-center
           bg-white transition-all duration-300
           active:scale-95
           border border-red-500/20 hover:border-red-500/60
@@ -44,6 +45,7 @@ export default function CustomButton({
           height: height,
           fontSize: fontSize,
           borderRadius: borderRadius,
+          gap:gap
         }}
       >
         <span className="flex items-center justify-center">

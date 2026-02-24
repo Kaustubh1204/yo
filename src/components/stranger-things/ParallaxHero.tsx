@@ -157,17 +157,19 @@ export function ParallaxHero() {
                             link="https://discord.com/invite/qxFmdeYCT"
                             imageSrc="discord-logo.svg"
                             buttonText="Join Discord"
-                            width="220px"
+                            width="180px"
                             iconSize="28px"
                             applyInvert={false}
+                            gap="5px"
                         />
                         <CustomButton
                             link="https://hacknovate07.devfolio.co/overview"
                             imageSrc="devfolio.png"
                             buttonText="Apply with Devfolio"
-                            width="270px"
+                            width="220px"
                             iconSize="40px"
                             applyInvert={true}
+                            gap="-2px"
                         />
                     </div>
 
