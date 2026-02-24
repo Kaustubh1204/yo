@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,7 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { Navbar } from "./Navbar";
 import { CountdownTimer } from "./CountdownTimer";
 import { CustomCursor } from "./CustomCursor";
-import DevfolioButton from "./DevfolioButton";
+import DevfolioButton from "./HeroButton";
+import CustomButton from "./HeroButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,21 +83,21 @@ export function ParallaxHero() {
             { opacity: 0, y: 40 },
             { opacity: 1, y: 0, duration: 1.5, delay: 0.3 }
         )
-        .fromTo([navLogoRef.current, abesitLogoRef.current],
-            { opacity: 0, y: -20 },
-            { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
-            "-=1"
-        )
-        .fromTo(fgRef.current,
-            { opacity: 0, y: 100 },
-            { opacity: 1, y: 0, duration: 1.2 },
-            "-=0.8"
-        )
-        .fromTo(countdownRef.current,
-            { opacity: 0, x: 50 },
-            { opacity: 1, x: 0, duration: 1 },
-            "-=0.8"
-        );
+            .fromTo([navLogoRef.current, abesitLogoRef.current],
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
+                "-=1"
+            )
+            .fromTo(fgRef.current,
+                { opacity: 0, y: 100 },
+                { opacity: 1, y: 0, duration: 1.2 },
+                "-=0.8"
+            )
+            .fromTo(countdownRef.current,
+                { opacity: 0, x: 50 },
+                { opacity: 1, x: 0, duration: 1 },
+                "-=0.8"
+            );
     }, { scope: containerRef });
 
     return (
@@ -124,11 +124,11 @@ export function ParallaxHero() {
                 </div>
             </div>
 
-            <div ref={leftTreesRef} className="hidden md:block absolute inset-y-0 left-0 h-full pointer-events-none" style={{ transform: 'translateX(-35%)' }}>
+            <div ref={leftTreesRef} className="block absolute inset-y-0 -left-90 sm:-left-30 md:-left-50 lg:left-0 h-full pointer-events-none" style={{ transform: 'translateX(-35%)' }}>
                 <img src="/assets/images/trees-left.png" className="h-full w-auto" />
             </div>
 
-            <div ref={rightTreesRef} className="hidden md:block absolute inset-y-0 right-0 h-full pointer-events-none" style={{ transform: 'translateX(35%)' }}>
+            <div ref={rightTreesRef} className="block absolute inset-y-0 -right-100 sm:-right-40 md:-right-60 lg:right-0 h-full pointer-events-none" style={{ transform: 'translateX(35%)' }}>
                 <img src="/assets/images/trees-right.png" className="h-full w-auto" />
             </div>
 
@@ -141,7 +141,7 @@ export function ParallaxHero() {
                 <div className="pointer-events-auto text-center md:text-left px-2 md:pl-10 max-w-xl">
 
                     <h1
-                        className="text-white font-bold text-4xl md:text-5xl leading-[0.95] whitespace-nowrap"
+                        className="text-white font-bold text-[1.8rem] sm:text-4xl lg:text-5xl leading-[0.75] lg:leading-[0.95] whitespace-nowrap"
                         style={{ fontFamily: "ITC Benguiat Std" }}
                     >
                         ENTER THE UPSIDE
@@ -149,20 +149,33 @@ export function ParallaxHero() {
                         DOWN OF INNOVATION
                     </h1>
 
-                    <p className="text-gray-300 mt-4 text-lg md:text-xl" style={{ fontFamily: "ITC Benguiat Std" }}>
+                    <p className="text-gray-300 mt-4 text-lg lg:text-xl" style={{ fontFamily: "ITC Benguiat Std" }}>
                         Hacknovate 7.0 • 30-Hour National Hackathon
                     </p>
-
-                    <div className="flex gap-4 mt-10 justify-center md:justify-start">
-                        <button className="hero-btn">Join Discord</button>
-                        <DevfolioButton/>
+                    <div className="flex flex-col sm:flex-row gap-4 mt-8 lg:mt-10 items-center md:justify-start">
+                        <CustomButton
+                            buttonText="Apply with Devfolio"
+                            imageSrc="/devfolio.png" 
+                            width="180px"            
+                            height="56px"            
+                            iconSize="34px"
+                            gap="-2px"          
+                            applyInvert={true}
+                        />
+                        <CustomButton
+                            buttonText="Join Discord"
+                            imageSrc="/discord-logo.svg"
+                            width="180px"            
+                            height="56px"            
+                            iconSize="24px"          
+                            applyInvert={false}
+                        />
                     </div>
 
                     {/* MOBILE TIMER */}
                     <div className="md:hidden mt-10 flex justify-center">
                         <CountdownTimer isMenuOpen={isMenuOpen} />
                     </div>
-
                 </div>
             </div>
 

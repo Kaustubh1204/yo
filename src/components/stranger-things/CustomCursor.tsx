@@ -92,7 +92,7 @@ export function CustomCursor() {
     }, [isHovering, isOverRed]);
 
     return (
-        <div className={`hidden lg:block fixed inset-0 z-[9999] pointer-events-none ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
+        <div className={`hidden lg:block fixed inset-0 z-9999 pointer-events-none ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
             {/* Precise Inner Dot */}
             <div
                 ref={dotRef}

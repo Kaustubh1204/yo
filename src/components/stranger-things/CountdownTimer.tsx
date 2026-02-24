@@ -17,7 +17,7 @@ export const CountdownTimer = forwardRef<HTMLDivElement, CountdownTimerProps>(
     });
 
     useEffect(() => {
-        const targetDate = new Date("April 3, 2026 00:00:00").getTime();
+        const targetDate = new Date("March 20, 2026 00:00:00").getTime();
 
         const timer = setInterval(() => {
             const now = new Date().getTime();
@@ -49,7 +49,7 @@ export const CountdownTimer = forwardRef<HTMLDivElement, CountdownTimerProps>(
         <div
             ref={ref}
             className={`
-                flex flex-col items-end
+                flex flex-col items-center
                 pointer-events-auto select-none
                 transition-opacity duration-300
                 ${isMenuOpen ? "opacity-0 invisible" : "opacity-100 visible"}
@@ -58,11 +58,11 @@ export const CountdownTimer = forwardRef<HTMLDivElement, CountdownTimerProps>(
             data-cursor-flip="true"
         >
             {/* Heading */}
-            <p className="text-white font-bold text-sm md:text-lg tracking-[0.35em] mb-3">
-                DAYS LEFT
+            <p className="text-white font-bold text-sm  lg:text-lg tracking-[0.35em] mb-3">
+                Resgistration Closing in
             </p>
 
-            <div className="flex gap-2 md:gap-3 text-2xl md:text-5xl font-black italic tracking-tighter">
+            <div className="flex gap-2 md:gap-3 text-2xl md:text-4xl lg:text-5xl font-black italic tracking-tighter">
 
                 {/* Days */}
                 <div className="flex flex-col items-center">
