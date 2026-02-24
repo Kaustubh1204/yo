@@ -124,11 +124,11 @@ export function ParallaxHero() {
                 </div>
             </div>
 
-            <div ref={leftTreesRef} className="hidden md:block absolute inset-y-0 left-0 h-full pointer-events-none" style={{ transform: 'translateX(-35%)' }}>
+            <div ref={leftTreesRef} className="block absolute inset-y-0 -left-90 sm:-left-30 md:-left-50 lg:left-0 h-full pointer-events-none" style={{ transform: 'translateX(-35%)' }}>
                 <img src="/assets/images/trees-left.png" className="h-full w-auto" />
             </div>
 
-            <div ref={rightTreesRef} className="hidden md:block absolute inset-y-0 right-0 h-full pointer-events-none" style={{ transform: 'translateX(35%)' }}>
+            <div ref={rightTreesRef} className="block absolute inset-y-0 -right-100 sm:-right-40 md:-right-60 lg:right-0 h-full pointer-events-none" style={{ transform: 'translateX(35%)' }}>
                 <img src="/assets/images/trees-right.png" className="h-full w-auto" />
             </div>
 
@@ -141,7 +141,7 @@ export function ParallaxHero() {
                 <div className="pointer-events-auto text-center md:text-left px-2 md:pl-10 max-w-xl">
 
                     <h1
-                        className="text-white font-bold text-4xl md:text-5xl leading-[0.95] whitespace-nowrap"
+                        className="text-white font-bold text-[1.8rem] sm:text-4xl lg:text-5xl leading-[0.75] lg:leading-[0.95] whitespace-nowrap"
                         style={{ fontFamily: "ITC Benguiat Std" }}
                     >
                         ENTER THE UPSIDE
@@ -149,27 +149,26 @@ export function ParallaxHero() {
                         DOWN OF INNOVATION
                     </h1>
 
-                    <p className="text-gray-300 mt-4 text-lg md:text-xl" style={{ fontFamily: "ITC Benguiat Std" }}>
+                    <p className="text-gray-300 mt-4 text-lg lg:text-xl" style={{ fontFamily: "ITC Benguiat Std" }}>
                         Hacknovate 7.0 • 30-Hour National Hackathon
                     </p>
-                    <div className="flex gap-4 mt-10 justify-center md:justify-start">
+                    <div className="flex flex-col sm:flex-row gap-4 mt-8 lg:mt-10 items-center md:justify-start">
                         <CustomButton
-                            link="https://discord.com/invite/qxFmdeYCT"
-                            imageSrc="discord-logo.svg"
-                            buttonText="Join Discord"
-                            width="180px"
-                            iconSize="28px"
-                            applyInvert={false}
-                            gap="5px"
+                            buttonText="Apply with Devfolio"
+                            imageSrc="/devfolio.png" 
+                            width="180px"            
+                            height="56px"            
+                            iconSize="34px"
+                            gap="-2px"          
+                            applyInvert={true}
                         />
                         <CustomButton
-                            link="https://hacknovate07.devfolio.co/overview"
-                            imageSrc="devfolio.png"
-                            buttonText="Apply with Devfolio"
-                            width="220px"
-                            iconSize="40px"
-                            applyInvert={true}
-                            gap="-2px"
+                            buttonText="Join Discord"
+                            imageSrc="/discord-logo.svg"
+                            width="180px"            
+                            height="56px"            
+                            iconSize="24px"          
+                            applyInvert={false}
                         />
                     </div>
 
@@ -177,7 +176,6 @@ export function ParallaxHero() {
                     <div className="md:hidden mt-10 flex justify-center">
                         <CountdownTimer isMenuOpen={isMenuOpen} />
                     </div>
-
                 </div>
             </div>
 
