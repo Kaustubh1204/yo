@@ -35,6 +35,17 @@ export function Navbar({ isMenuOpen, setIsMenuOpen }: NavbarProps) {
         });
 
         ScrollTrigger.create({
+            trigger: "footer",
+            start: "top center",
+            onEnter: () => {
+                gsap.to(nav, { opacity: 0, scale: 0.95, pointerEvents: "none", duration: 0.4, ease: "power2.inOut" });
+            },
+            onLeaveBack: () => {
+                gsap.to(nav, { opacity: 1, scale: 1, pointerEvents: "auto", duration: 0.4, ease: "power2.inOut" });
+            }
+        });
+
+        ScrollTrigger.create({
             start: "top top-=50",
             onEnter: () => {
                 gsap.to(nav, {
@@ -117,8 +128,8 @@ export function Navbar({ isMenuOpen, setIsMenuOpen }: NavbarProps) {
                     ref={navContainerRef}
 
                     className="whitespace-nowrap max-w-4xl bg-white/5 backdrop-blur-lg border border-white/10 rounded-full h-16 flex items-center justify-center pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-                    // **********below is the code for redTheme navbar************
-                    // className="whitespace-nowrap max-w-4xl bg-black/18 backdrop-blur-xl backdrop-saturate-125 border border-white/8 rounded-full h-16 flex items-center justify-center pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)] overflow-hidden relative"
+                // **********below is the code for redTheme navbar************
+                // className="whitespace-nowrap max-w-4xl bg-black/18 backdrop-blur-xl backdrop-saturate-125 border border-white/8 rounded-full h-16 flex items-center justify-center pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)] overflow-hidden relative"
                 >
                     {/* Navigation Links (Desktop Only) */}
                     <nav className="flex gap-8 lg:gap-12" style={{ fontFamily: "'ITC Benguiat Std', sans-serif" }}>
@@ -145,9 +156,9 @@ export function Navbar({ isMenuOpen, setIsMenuOpen }: NavbarProps) {
                 </div>
                 {/* The "Slide Down" Drawer */}
                 {isMenuOpen && (
-                    <div ref={mobileMenuRef} 
+                    <div ref={mobileMenuRef}
 
-                    className="md:hidden absolute top-0 left-0 w-full bg-white/5 backdrop-blur-lg border border-white/10 z-100 overflow-hidden"
+                        className="md:hidden absolute top-0 left-0 w-full bg-white/5 backdrop-blur-lg border border-white/10 z-100 overflow-hidden"
                     // **********below is the code for redTheme navbar************
                     // className="md:hidden absolute top-0 left-0 w-full bg-black/18 backdrop-blur-sm backdrop-saturate-125 border border-white/8 z-100 overflow-hidden"
                     >

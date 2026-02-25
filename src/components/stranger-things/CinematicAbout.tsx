@@ -172,9 +172,9 @@ export function CinematicAbout() {
         const zoomTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionRef.current,
-                start: "40% top",
-                end: "bottom+=120% top", // High friction runway
-                scrub: 4.5, // Even smoother
+                start: "50% top",
+                end: "bottom+=80% top",   // MASSIVE zoom runway
+                scrub: 4,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
             },
@@ -193,7 +193,7 @@ export function CinematicAbout() {
             trigger: sectionRef.current,
             start: "top top",
             end: "bottom bottom",
-            scrub: 3, // Increased friction/weight
+            scrub: 2,
             anticipatePin: 1,
             onUpdate: (self) => {
                 const p = self.progress;
@@ -301,7 +301,7 @@ export function CinematicAbout() {
         <section
             ref={sectionRef}
             className="relative bg-black"
-            style={{ height: "1200vh" }}
+            style={{ height: "550vh" }}
         >
 
             {/* ── Sticky Viewport (CSS sticky, 100vh)

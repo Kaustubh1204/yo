@@ -78,7 +78,7 @@ export function AboutTracksSection() {
         trigger: sectionRef.current,
         start: 'top bottom',
         end: 'top top',
-        scrub: true,
+        scrub: 1,
       },
     });
 
@@ -132,7 +132,7 @@ export function AboutTracksSection() {
       trigger: sectionRef.current,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: true,
+      scrub: 1,
       onUpdate: (self) => {
         const p = self.progress;
         const n = totalPanels;
@@ -164,6 +164,7 @@ export function AboutTracksSection() {
         const maxTranslate = ((n - 1) / n) * 100;
         gsap.set(panelsWrapperRef.current, {
           yPercent: -maxTranslate * steppedProgress,
+          force3D: true,
         });
 
         // Per-panel depth: opacity, scale, blur
@@ -188,7 +189,8 @@ export function AboutTracksSection() {
           gsap.set(panel, {
             opacity,
             scale,
-            filter: blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : 'none',
+            filter: blur > 0.4 ? `blur(${blur.toFixed(1)}px)` : 'none',
+            force3D: true,
           });
         });
       },
@@ -212,7 +214,7 @@ export function AboutTracksSection() {
             alt="Hacknovate Cinematic Background"
             fill
             className="object-cover object-bottom"
-            quality={100}
+            quality={90}
             priority
           />
           {/* layered overlays for depth */}
@@ -223,6 +225,8 @@ export function AboutTracksSection() {
             className="absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
             style={{ background: 'linear-gradient(to top, rgba(120,0,0,0.18), transparent)' }}
           />
+          {/* Bottom fade for smooth footer transition */}
+          <div className="absolute bottom-0 left-0 right-0 h-64 z-20 bg-gradient-to-t from-black to-transparent pointer-events-none" />
         </div>
 
         {/* ── Fixed Heading — outside panels, stays static ── */}
@@ -268,7 +272,7 @@ export function AboutTracksSection() {
                 style={{ height: `${100 / TRACKS.length}%` }}
               >
                 {/* ── Text Block ── */}
-                <div className="w-full md:w-1/2 flex flex-col justify-end pb-10 md:pb-16 z-30">
+                <div className="w-full md:w-1/2 flex flex-col justify-center pt-20 md:pt-32 z-30">
                   {/* track number */}
                   <p
                     className="text-red-700 text-xs uppercase tracking-[0.5em] font-semibold mb-4"
@@ -307,9 +311,9 @@ export function AboutTracksSection() {
                       src={track.image}
                       alt={track.title}
                       fill
-                      className="object-contain object-bottom"
+                      className="object-contain object-bottom select-none"
                       style={{
-                        filter: 'drop-shadow(0 0 40px rgba(220,38,38,0.4)) drop-shadow(0 0 80px rgba(220,38,38,0.15)) brightness(0.92) contrast(1.2)',
+                        filter: 'drop-shadow(0 0 50px rgba(220,38,38,0.4)) brightness(0.92) contrast(1.1)',
                       }}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />

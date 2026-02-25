@@ -42,9 +42,9 @@ export function AboutHacknovate() {
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: "+=800%", // High friction / Long runway
+                    end: "+=350%", // Tightened even further to reach ABESIT faster
                     pin: true,
-                    scrub: 1.5,
+                    scrub: 1.2, // Smoother but faster
                     anticipatePin: 1,
                 },
             });
@@ -64,7 +64,7 @@ export function AboutHacknovate() {
             // 1. Logo fades in - Stronger initial blur as requested
             tl.fromTo(
                 logoRef.current,
-                { opacity: 0, scale: 0.9, filter: "blur(30px)" }, // Increased blur
+                { opacity: 0, scale: 0.6, filter: "blur(40px)" }, // Started from smaller scale for more dramatic zoom-in
                 {
                     opacity: 1,
                     scale: 1,
@@ -76,13 +76,13 @@ export function AboutHacknovate() {
             )
 
                 // Hold logo
-                .to({}, { duration: 0.8 })
+                .to({}, { duration: 0.6 }) // Slightly faster hold
 
                 // Logo fades out
                 .to(logoRef.current, {
                     opacity: 0,
-                    scale: 1.05,
-                    filter: "blur(20px)", // Increased exit blur
+                    scale: 1.4,
+                    filter: "blur(30px)", // Increased exit blur and scale for dramatic exit
                     duration: 0.8,
                     ease: "power2.in",
                     force3D: true,
@@ -106,21 +106,21 @@ export function AboutHacknovate() {
                 // Hold fully visible text
                 .to({}, { duration: 1 })
 
-                // Text fades out smoothly
+                // Text fades out smoothly - moved later and faster
                 .to(textRef.current, {
                     opacity: 0,
-                    y: -15,
+                    y: -10,
                     filter: "blur(8px)",
-                    duration: 0.8,
-                    ease: "power1.inOut",
+                    duration: 0.4,
+                    ease: "power2.in",
                     force3D: true,
                 })
 
-                // 3. Final Section Fade Out (Seamless Transition to CinematicAbout)
+                // 3. Final Section Fade Out (Seamless Transition)
                 .to(sectionRef.current, {
                     opacity: 0,
-                    duration: 1.2,
-                    ease: "power2.inOut",
+                    duration: 0.4,
+                    ease: "power2.in",
                     force3D: true,
                 });
 
@@ -164,7 +164,7 @@ export function AboutHacknovate() {
                 {/* TEXT — Letter-by-letter reveal */}
                 <p
                     ref={textRef}
-                    className="absolute text-white/90 text-[1.6rem] md:text-[2.5rem] lg:text-[3.25rem] leading-[1.2] font-medium tracking-tight text-center max-w-[1200px] w-full px-4 will-change-[transform,opacity]"
+                    className="absolute text-white/90 text-[1.6rem] md:text-[2.5rem] lg:text-[3.25rem] leading-[1.2] font-medium tracking-tight text-justify max-w-[1200px] w-full px-4 will-change-[transform,opacity]"
                     style={{
                         fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
                         textWrap: "balance" as any
@@ -196,20 +196,16 @@ export function AboutHacknovate() {
                     })}
                 </p>
 
-                {/* HACKNOVATE 7.0 — Optimized with will-change */}
+                {/* HACKNOVATE 7.0 LOGO — Substituted for text */}
                 <div
                     ref={logoRef}
                     className="absolute flex flex-col items-center justify-center pointer-events-none opacity-0 will-change-[transform,opacity]"
                 >
-                    <h2
-                        className="text-white/90 text-[3rem] md:text-[5.5rem] lg:text-[8rem] font-bold uppercase tracking-tight leading-[0.85] text-center"
-                        style={{
-                            fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
-                        }}
-                    >
-                        Hacknovate<br />7.0
-                    </h2>
-                    <div className="w-32 md:w-48 h-[2px] bg-white/30 mt-8" />
+                    <img
+                        src="/navlogo.png"
+                        alt="Hacknovate 7.0 Logo"
+                        className="h-48 md:h-72 lg:h-96 w-auto drop-shadow-[0_0_40px_rgba(255,0,0,0.4)]"
+                    />
                 </div>
             </div>
         </section>
