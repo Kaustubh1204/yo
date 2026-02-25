@@ -217,9 +217,9 @@ export function AboutTracksSection() {
             quality={90}
             priority
           />
-          {/* layered overlays for depth */}
-          <div className="absolute inset-0 bg-black/65 z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)] z-10 pointer-events-none" />
+          {/* layered overlays for depth - brightened for visibility */}
+          <div className="absolute inset-0 bg-black/45 z-10" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.7)_100%)] z-10 pointer-events-none" />
           {/* subtle red floor glow */}
           <div
             className="absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"

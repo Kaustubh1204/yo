@@ -70,7 +70,7 @@ export function Footer() {
                         src="/assets/footer/1000_F_520711569_TXpAeak7zUHAb4mb6uRM1iDxZqQMNEbX.jpg"
                         alt="Background Texture"
                         fill
-                        className="object-cover opacity-70 contrast-125 brightness-75"
+                        className="object-cover opacity-60 contrast-125 brightness-75"
                         priority
                     />
                 </div>
