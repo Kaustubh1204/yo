@@ -172,9 +172,9 @@ export function CinematicAbout() {
         const zoomTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionRef.current,
-                start: "50% top",
-                end: "bottom+=80% top",   // MASSIVE zoom runway
-                scrub: 4,
+                start: "40% top",
+                end: "bottom+=120% top", // High friction runway
+                scrub: 4.5, // Even smoother
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
             },
@@ -183,7 +183,7 @@ export function CinematicAbout() {
         zoomTl.to(fullBgRef.current, {
             scale: 8.5,              // FULL gate fill
             y: -1200,                // deep dive inside entrance
-            transformOrigin: "50% 78%", 
+            transformOrigin: "50% 78%",
             ease: "none",
             force3D: true
         });
@@ -193,7 +193,7 @@ export function CinematicAbout() {
             trigger: sectionRef.current,
             start: "top top",
             end: "bottom bottom",
-            scrub: 2,
+            scrub: 3, // Increased friction/weight
             anticipatePin: 1,
             onUpdate: (self) => {
                 const p = self.progress;
@@ -277,7 +277,7 @@ export function CinematicAbout() {
                 if (p >= 0.94) {
                     const t = Math.min(1, (p - 0.94) / 0.06);
                     overlayOpacity = 0.20 + t * 0.80;
-                    
+
                     // ensure full black and prevent lower section bleed
                     if (t >= 1) {
                         gsap.set(fullBgRef.current, { opacity: 0 });
@@ -293,15 +293,15 @@ export function CinematicAbout() {
         };
     }, { scope: sectionRef });
 
-    return (    
+    return (
         /*
          * Outer section: 700vh tall — this is the "scroll runway".
          * The sticky child locks to the viewport for the full runway.
          */
-        <section 
-            ref={sectionRef} 
-            className="relative bg-black" 
-            style={{ height: "550vh" }}
+        <section
+            ref={sectionRef}
+            className="relative bg-black"
+            style={{ height: "1200vh" }}
         >
 
             {/* ── Sticky Viewport (CSS sticky, 100vh)
@@ -402,11 +402,21 @@ export function CinematicAbout() {
 
                     {/* Description */}
                     <p
-                        className="text-white/65 text-base md:text-lg max-w-lg text-center leading-relaxed font-light px-6"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
+                        className="text-white/90 text-sm md:text-base lg:text-lg max-w-2xl text-center leading-relaxed px-6"
+                        style={{ fontFamily: "'ITC Benguiat Std', serif", fontWeight: "normal" }}
                     >
-                        Asia&apos;s premier engineering institution—nurturing the
-                        innovators, engineers, and leaders who define tomorrow.
+                        ABES Institute of Technology (ABESIT), affiliated with Dr. A.P.J. Abdul Kalam
+                        Technical University, Lucknow, is a premier technical institution located in
+                        Ghaziabad, Uttar Pradesh. Since its establishment in 2007, the institute has
+                        focused on delivering quality technical education while fostering innovation,
+                        research, and industry-oriented learning.
+                        <br /><br />
+                        With strong academic programs in engineering and technology, ABESIT has
+                        consistently encouraged students to participate in national-level innovation
+                        challenges and hackathons, achieving remarkable performances over the years.
+                        The institute promotes a culture of creativity and problem-solving through
+                        dedicated innovation initiatives, modern infrastructure, and collaborations
+                        that expose students to real-world technological advancements.
                     </p>
 
                     {/* Decorative bottom dots */}

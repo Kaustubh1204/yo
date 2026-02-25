@@ -58,28 +58,76 @@ export function AboutTracksSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const panelsWrapperRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const bgRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const headingLineRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (!sectionRef.current || !panelsWrapperRef.current || !bgRef.current) return;
 
     const totalPanels = TRACKS.length;
     const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
+    const images = imageRefs.current.filter(Boolean) as HTMLDivElement[];
 
-    // Entrance animation for the background
+    // ── Section entrance: background scale + heading fade-in ──────────────────
     gsap.from(bgRef.current, {
-      scale: 1.15,
-      opacity: 0.4,
+      scale: 1.12,
+      opacity: 0.3,
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top bottom',
         end: 'top top',
         scrub: true,
-      }
+      },
     });
 
-    // Main ScrollTrigger: slides panelsWrapper up via yPercent
-    // NO SNAP — user controls scroll freely, no auto-scrolling
+    gsap.from(headingRef.current, {
+      opacity: 0,
+      y: -30,
+      duration: 1.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+      },
+    });
+
+    gsap.from(headingLineRef.current, {
+      scaleX: 0,
+      duration: 1,
+      ease: 'power3.out',
+      transformOrigin: 'left center',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 75%',
+        toggleActions: 'play none none none',
+      },
+    });
+
+    // ── Floating + slow-scale loop per character image ─────────────────────────
+    images.forEach((img, i) => {
+      const delay = i * 0.4;
+      gsap.to(img, {
+        y: -18,
+        repeat: -1,
+        yoyo: true,
+        duration: 3.5 + i * 0.3,
+        ease: 'sine.inOut',
+        delay,
+      });
+      gsap.to(img, {
+        scale: 1.04,
+        repeat: -1,
+        yoyo: true,
+        duration: 5 + i * 0.2,
+        ease: 'sine.inOut',
+        delay: delay + 0.5,
+      });
+    });
+
+    // ── Main scroll driver ─────────────────────────────────────────────────────
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
@@ -89,9 +137,6 @@ export function AboutTracksSection() {
         const p = self.progress;
         const n = totalPanels;
 
-        // Convert linear scroll progress into a stepped progress.
-        // Divide the total scroll into N equal segments (N = number of tracks).
-        // Each segment has a hold zone (panel stays locked) and a transition zone.
         const segmentSize = 1 / n;
         const holdRatio = 0.7;
         const transRatio = 0.3;
@@ -102,42 +147,49 @@ export function AboutTracksSection() {
           steppedProgress = 1;
         } else {
           const currentSegment = Math.floor(p / segmentSize);
-          const segmentProgress = (p - (currentSegment * segmentSize)) / segmentSize;
+          const segmentProgress = (p - currentSegment * segmentSize) / segmentSize;
 
           if (currentSegment >= n - 1) {
-            // Last panel: just stay at the end
             steppedProgress = 1;
           } else if (segmentProgress <= holdRatio) {
-            // In the hold zone -> lock to current panel
             steppedProgress = currentSegment / (n - 1);
           } else {
-            // In the transition zone -> fast slide to next panel
             const transProgress = (segmentProgress - holdRatio) / transRatio;
             const eased = transProgress * transProgress * (3 - 2 * transProgress);
             steppedProgress = (currentSegment + eased) / (n - 1);
           }
         }
 
-        // Apply the stepped yPercent
+        // Translate panels wrapper
         const maxTranslate = ((n - 1) / n) * 100;
         gsap.set(panelsWrapperRef.current, {
           yPercent: -maxTranslate * steppedProgress,
         });
 
-        // Per-panel opacity based on stepped progress
+        // Per-panel depth: opacity, scale, blur
         const panelProgress = steppedProgress * (n - 1);
 
         panels.forEach((panel, i) => {
           const offset = panelProgress - i;
-          let opacity = 1;
+          const absOffset = Math.abs(offset);
 
-          if (offset > 0.15) {
-            opacity = Math.max(0, 1 - (offset - 0.15) / 0.35);
-          } else if (offset < -0.15) {
-            opacity = Math.max(0, 1 - (Math.abs(offset) - 0.15) / 0.35);
+          // Opacity: active = 1, neighbours fade
+          let opacity = 1;
+          if (absOffset > 0.15) {
+            opacity = Math.max(0, 1 - (absOffset - 0.15) / 0.35);
           }
 
-          gsap.set(panel, { opacity });
+          // Scale: active = 1.0, inactive = 0.96
+          const scale = 1 - Math.min(absOffset, 1) * 0.04;
+
+          // Blur: active = 0px, inactive up to 3px
+          const blur = Math.min(absOffset, 1) * 3;
+
+          gsap.set(panel, {
+            opacity,
+            scale,
+            filter: blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : 'none',
+          });
         });
       },
     });
@@ -147,11 +199,10 @@ export function AboutTracksSection() {
   return (
     <section
       ref={sectionRef}
-      // Explicit height: each panel gets 100dvh of scroll distance
       style={{ height: `${TRACKS.length * 100}dvh` }}
-      className="relative w-full bg-black font-serif z-30 -mt-[100vh] rounded-t-[3rem] shadow-[0_-20px_60px_rgba(0,0,0,0.9)]"
+      className={`${trackFont.variable} relative w-full bg-black rounded-t-[3rem] shadow-[0_-20px_80px_rgba(0,0,0,0.95)]`}
     >
-      {/* Sticky fullscreen viewport — stays pinned while section scrolls */}
+      {/* Sticky fullscreen viewport */}
       <div className="sticky top-0 left-0 w-full h-[100dvh] overflow-hidden z-20">
 
         {/* Cinematic Background */}
@@ -164,18 +215,45 @@ export function AboutTracksSection() {
             quality={100}
             priority
           />
-          <div className="absolute inset-0 bg-black/60 z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] z-10 pointer-events-none" />
+          {/* layered overlays for depth */}
+          <div className="absolute inset-0 bg-black/65 z-10" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)] z-10 pointer-events-none" />
+          {/* subtle red floor glow */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(to top, rgba(120,0,0,0.18), transparent)' }}
+          />
         </div>
 
-        {/* Page Title */}
-        <div className="absolute top-36 left-0 w-full z-40 px-6 md:px-12 pointer-events-none">
-          <h2 className={`${trackFont.className} text-red-700 text-3xl md:text-5xl font-extrabold uppercase tracking-wider`}>
-            Innovation Tracks
+        {/* ── Fixed Heading — outside panels, stays static ── */}
+        <div
+          ref={headingRef}
+          className="absolute top-12 left-0 w-full z-40 px-8 md:px-14 pointer-events-none"
+        >
+          <p
+            className="uppercase tracking-[0.45em] text-[10px] text-red-500 font-semibold mb-3"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Hacknovate 7.0
+          </p>
+          <h2
+            className={`${trackFont.className} text-white text-4xl md:text-6xl font-extrabold uppercase tracking-wider leading-none`}
+            style={{
+              textShadow: '0 0 40px rgba(220,38,38,0.35), 0 2px 0 rgba(0,0,0,0.8)',
+            }}
+          >
+            Innovation
+            <br />
+            <span className="text-red-600">Tracks</span>
           </h2>
+          {/* animated red underline */}
+          <div
+            ref={headingLineRef}
+            className="mt-4 h-[2px] w-24 bg-gradient-to-r from-red-700 via-red-500 to-transparent origin-left"
+          />
         </div>
 
-        {/* Panels Wrapper — tall column, animated with translateY */}
+        {/* ── Panels Wrapper ── */}
         <div className="absolute top-0 left-0 w-full h-full z-20 overflow-hidden">
           <div
             ref={panelsWrapperRef}
@@ -186,28 +264,56 @@ export function AboutTracksSection() {
               <div
                 key={idx}
                 ref={(el) => { panelRefs.current[idx] = el; }}
-                className="w-full h-full flex flex-col md:flex-row items-center justify-center px-6 md:px-12 pt-52 md:pt-0 gap-4 md:gap-12 will-change-[opacity] relative"
+                className="w-full flex flex-col md:flex-row items-end md:items-center justify-center px-8 md:px-14 pt-52 md:pt-0 gap-8 md:gap-0 will-change-[opacity,transform,filter]"
                 style={{ height: `${100 / TRACKS.length}%` }}
               >
-                {/* Text Content — bottom-left, flush like jaquier.dev */}
-                <div className="w-full md:w-3/5 flex flex-col justify-end text-left z-30 pb-4">
-                  <h1 className={`${trackFont.className} text-white font-bold text-2xl md:text-4xl leading-tight mb-3 tracking-wide uppercase`}>
+                {/* ── Text Block ── */}
+                <div className="w-full md:w-1/2 flex flex-col justify-end pb-10 md:pb-16 z-30">
+                  {/* track number */}
+                  <p
+                    className="text-red-700 text-xs uppercase tracking-[0.5em] font-semibold mb-4"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {String(idx + 1).padStart(2, '0')} / {String(TRACKS.length).padStart(2, '0')}
+                  </p>
+
+                  {/* title */}
+                  <h1
+                    className={`${trackFont.className} text-white font-bold text-3xl md:text-5xl lg:text-6xl leading-tight mb-4 tracking-wide uppercase`}
+                    style={{ textShadow: '0 4px 40px rgba(0,0,0,0.9)' }}
+                  >
                     {track.title}
                   </h1>
-                  <p className="text-gray-300/90 text-sm md:text-base leading-relaxed max-w-2xl">
+
+                  {/* red accent bar */}
+                  <div className="w-14 h-[2px] bg-gradient-to-r from-red-600 to-red-900 mb-5" />
+
+                  {/* description */}
+                  <p
+                    className="text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed max-w-lg"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
                     {track.description}
                   </p>
                 </div>
 
-                {/* Character Image */}
-                <div className="w-full md:w-[35%] h-[30vh] md:h-[70%] relative flex items-end justify-center md:justify-end z-20 pointer-events-none origin-bottom md:-translate-x-12 lg:-translate-x-16 flex-shrink-0">
-                  <Image
-                    src={track.image}
-                    alt={track.title}
-                    fill
-                    className="object-contain object-bottom drop-shadow-[0_0_30px_rgba(220,38,38,0.3)] filter brightness-90 contrast-125"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+                {/* ── Character Image ── */}
+                <div className="w-full md:w-1/2 h-[35vh] md:h-[75%] relative flex items-end justify-center md:justify-end z-20 pointer-events-none flex-shrink-0">
+                  <div
+                    ref={(el) => { imageRefs.current[idx] = el; }}
+                    className="relative w-full h-full will-change-transform"
+                  >
+                    <Image
+                      src={track.image}
+                      alt={track.title}
+                      fill
+                      className="object-contain object-bottom"
+                      style={{
+                        filter: 'drop-shadow(0 0 40px rgba(220,38,38,0.4)) drop-shadow(0 0 80px rgba(220,38,38,0.15)) brightness(0.92) contrast(1.2)',
+                      }}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
                 </div>
               </div>
             ))}
