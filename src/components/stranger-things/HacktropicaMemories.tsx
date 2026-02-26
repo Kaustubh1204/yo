@@ -117,9 +117,9 @@ export function HacktropicaMemories() {
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 90%",
-                        end: "top 50%",
-                        scrub: 1,
+                        start: "top 100%",
+                        end: "top 60%",
+                        scrub: 1.5,
                     },
                 }
             );
@@ -148,7 +148,7 @@ export function HacktropicaMemories() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full bg-black overflow-hidden"
+            className="relative w-full bg-black overflow-hidden -mt-24"
             style={{ opacity: 0 }}
         >
             {/* Static Background */}

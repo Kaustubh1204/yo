@@ -33,7 +33,7 @@ export function AboutHacknovate() {
                         trigger: sectionRef.current,
                         start: "top 90%",
                         end: "top 60%",
-                        scrub: 1,
+                        scrub: 1.5,
                     },
                 }
             );
@@ -44,7 +44,7 @@ export function AboutHacknovate() {
                     start: "top top",
                     end: "+=350%", // Tightened even further to reach ABESIT faster
                     pin: true,
-                    scrub: 1.2, // Smoother but faster
+                    scrub: 1.5,
                     anticipatePin: 1,
                 },
             });
@@ -64,11 +64,10 @@ export function AboutHacknovate() {
             // 1. Logo fades in - Stronger initial blur as requested
             tl.fromTo(
                 logoRef.current,
-                { opacity: 0, scale: 0.6, filter: "blur(40px)" }, // Started from smaller scale for more dramatic zoom-in
+                { opacity: 0, scale: 0.6 }, // Removed blur for stability
                 {
                     opacity: 1,
                     scale: 1,
-                    filter: "blur(0px)",
                     duration: 1.2,
                     ease: "power2.out",
                     force3D: true,
@@ -82,7 +81,6 @@ export function AboutHacknovate() {
                 .to(logoRef.current, {
                     opacity: 0,
                     scale: 1.4,
-                    filter: "blur(30px)", // Increased exit blur and scale for dramatic exit
                     duration: 0.8,
                     ease: "power2.in",
                     force3D: true,
@@ -91,12 +89,11 @@ export function AboutHacknovate() {
                 // 2. Letter-by-letter blur reveal
                 .fromTo(
                     chars,
-                    { opacity: 0, y: 10, filter: "blur(10px)" }, // Deepened blur
+                    { opacity: 0, y: 10 }, // Removed blur
                     {
                         opacity: 1,
                         y: 0,
-                        filter: "blur(0px)",
-                        stagger: 0.015, // Refined stagger
+                        stagger: 0.015,
                         ease: "power2.out",
                         duration: 0.5,
                         force3D: true,
@@ -110,7 +107,6 @@ export function AboutHacknovate() {
                 .to(textRef.current, {
                     opacity: 0,
                     y: -10,
-                    filter: "blur(8px)",
                     duration: 0.4,
                     ease: "power2.in",
                     force3D: true,
@@ -164,7 +160,7 @@ export function AboutHacknovate() {
                 {/* TEXT — Letter-by-letter reveal */}
                 <p
                     ref={textRef}
-                    className="absolute text-white/90 text-[1.6rem] md:text-[2.5rem] lg:text-[3.25rem] leading-[1.2] font-medium tracking-tight text-justify max-w-[1200px] w-full px-4 will-change-[transform,opacity]"
+                    className="absolute text-white/90 text-[1.6rem] md:text-[2.5rem] lg:text-[3.25rem] leading-[1.2] font-medium tracking-tight text-center max-w-[1200px] w-full px-4 will-change-[transform,opacity]"
                     style={{
                         fontFamily: "'ITC Benguiat Std', serif",
                         textWrap: "balance" as any
@@ -182,6 +178,7 @@ export function AboutHacknovate() {
                                             <span
                                                 key={cIdx}
                                                 className="reveal-char inline-block opacity-0 will-change-transform"
+                                                style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
                                             >
                                                 {char}
                                             </span>

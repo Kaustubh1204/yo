@@ -78,7 +78,7 @@ export function AboutTracksSection() {
         trigger: sectionRef.current,
         start: 'top bottom',
         end: 'top top',
-        scrub: 1,
+        scrub: 1.5,
       },
     });
 
@@ -132,7 +132,7 @@ export function AboutTracksSection() {
       trigger: sectionRef.current,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 1,
+      scrub: 1.5,
       onUpdate: (self) => {
         const p = self.progress;
         const n = totalPanels;
@@ -196,16 +196,32 @@ export function AboutTracksSection() {
       },
     });
 
+    // ── Section exit: fade out the sticky viewport at the very end ──
+    // Target the inner sticky div instead of the parent root for stability
+    gsap.to(bgRef.current?.parentElement, {
+      opacity: 0,
+      ease: 'power2.in',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'bottom 120%',
+        end: 'bottom top',
+        scrub: 1.5,
+      },
+    });
+
+    // Final refresh to ensure all positions are locked in
+    ScrollTrigger.refresh();
+
   }, { scope: sectionRef });
 
   return (
     <section
       ref={sectionRef}
-      style={{ height: `${TRACKS.length * 100}dvh` }}
+      style={{ height: `${TRACKS.length * 100}vh` }}
       className={`${trackFont.variable} relative w-full bg-black rounded-t-[3rem] shadow-[0_-20px_80px_rgba(0,0,0,0.95)]`}
     >
       {/* Sticky fullscreen viewport */}
-      <div className="sticky top-0 left-0 w-full h-[100dvh] overflow-hidden z-20">
+      <div className="sticky top-0 left-0 w-full h-[100vh] overflow-hidden z-20">
 
         {/* Cinematic Background */}
         <div ref={bgRef} className="absolute inset-0 z-0 origin-center will-change-transform">

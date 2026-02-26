@@ -1,4 +1,4 @@
-import { ParallaxHero } from "@/components/stranger-things/ParallaxHero";
+import { Portal } from "@/components/portal/Portal";
 import { AboutHacknovate } from "@/components/stranger-things/AboutHacknovate";
 import { CinematicAbout } from "@/components/stranger-things/CinematicAbout";
 import { AboutTracksSection } from "@/components/stranger-things/AboutTracksSection";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="relative bg-black min-h-screen selection:bg-red-900 selection:text-white">
       <AudioToggle />
-      <ParallaxHero />
+      <Portal />
       <AboutHacknovate />
       <CinematicAbout />
       <AboutTracksSection />

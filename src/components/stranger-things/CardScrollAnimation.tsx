@@ -38,7 +38,7 @@ const CARDS = [
         label: "(03)",
         heading: "Best Beginner",
         p1: "4000/-",
-        p2: "All Girls Team: 4000/-",
+        p2: "All girls team: 4000/-",
     },
 ];
 
@@ -63,9 +63,9 @@ export function CardScrollAnimation() {
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: root,
-                        start: "top 85%",
-                        end: "top 40%",
-                        scrub: 1,
+                        start: "top 95%",
+                        end: "top 50%",
+                        scrub: 1.5,
                     },
                 }
             );
@@ -80,7 +80,7 @@ export function CardScrollAnimation() {
             if (!mc1 || !mc2 || !mc3 || !container) return;
 
             const mobileCards = [mc1, mc2, mc3];
-            const scrollDistance = window.innerHeight * 2.5;
+            const scrollDistance = window.innerHeight * 0.9;
 
             gsap.set([mobileCards, container], { clearProps: "all" });
 
@@ -89,18 +89,18 @@ export function CardScrollAnimation() {
                     trigger: stickyRef.current,
                     start: "top top",
                     end: `+=${scrollDistance}px`,
-                    scrub: 0.5,
+                    scrub: 1.5,
                     pin: true,
                     pinSpacing: true,
                     invalidateOnRefresh: true,
                 },
             });
 
-            tl.to(container, { gap: "1.25rem", duration: 1, ease: "power2.inOut", force3D: true }, 0)
-                .to(mobileCards, { borderRadius: "16px", duration: 1, ease: "power2.inOut", force3D: true }, 0)
-                .to(mc1, { y: -12, duration: 1, ease: "power2.inOut", force3D: true }, 0)
-                .to(mc3, { y: 12, duration: 1, ease: "power2.inOut", force3D: true }, 0)
-                .to(mobileCards, { rotationY: 180, duration: 1.5, ease: "power1.inOut", stagger: 0.15, force3D: true }, 0.6);
+            tl.to(container, { gap: "1.25rem", duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mobileCards, { borderRadius: "16px", duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mc1, { y: -12, duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mc3, { y: 12, duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mobileCards, { rotationY: 180, duration: 0.35, ease: "power1.inOut", stagger: 0.05, force3D: true }, 0.2);
 
             return () => {
                 tl.kill();
@@ -117,30 +117,30 @@ export function CardScrollAnimation() {
 
             const allCards = [c1, c2, c3];
             const outerCards = [c1, c3];
-            const scrollDistance = window.innerHeight * 2.5;
+            const scrollDistance = window.innerHeight * 0.9;
 
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: stickyRef.current,
                     start: "top top",
                     end: `+=${scrollDistance}px`,
-                    scrub: 0.5,
+                    scrub: 1.5,
                     pin: true,
                     pinSpacing: true,
                     invalidateOnRefresh: true,
                 },
             });
 
-            // Width Animation (0 - 25%)
-            tl.to(container, { width: "60%", ease: "none", duration: 0.25, force3D: true }, 0);
+            // Width Animation (give more room for text)
+            tl.to(container, { width: "85%", ease: "none", duration: 0.1, force3D: true }, 0);
 
-            // Gap + Border Radius (at 35%)
-            tl.to(container, { gap: "20px", ease: "power3.out", duration: 0.1, force3D: true }, 0.35)
-                .to(allCards, { borderRadius: "28px", ease: "power3.out", duration: 0.1, force3D: true }, 0.35);
+            // Gap + Border Radius (at 12%)
+            tl.to(container, { gap: "24px", ease: "power3.out", duration: 0.08, force3D: true }, 0.12)
+                .to(allCards, { borderRadius: "28px", ease: "power3.out", duration: 0.08, force3D: true }, 0.12);
 
-            // Flip Animation (at 70%)
-            tl.to(allCards, { rotationY: 180, ease: "power3.inOut", stagger: 0.05, duration: 0.2, force3D: true }, 0.7)
-                .to(outerCards, { y: 30, rotationZ: (i: number) => (i === 0 ? -15 : 15), ease: "power3.inOut", duration: 0.2, force3D: true }, 0.7);
+            // Flip Animation (at 25% → done by 60%)
+            tl.to(allCards, { rotationY: 180, ease: "power3.inOut", stagger: 0.05, duration: 0.35, force3D: true }, 0.25)
+                .to(outerCards, { y: 20, rotationZ: (i: number) => (i === 0 ? -12 : 12), ease: "power3.inOut", duration: 0.35, force3D: true }, 0.25);
 
             return () => {
                 tl.kill();
@@ -234,7 +234,7 @@ export function CardScrollAnimation() {
                                 <div className="back-overlay"></div>
                                 <div className="back-content">
                                     <span>{card.label}</span>
-                                    <h2 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>{card.heading}</h2>
+                                    <h2>{card.heading}</h2>
                                     <p>{card.p1}</p>
                                     <p>{card.p2}</p>
                                 </div>
@@ -243,6 +243,9 @@ export function CardScrollAnimation() {
                     ))}
                 </div>
             </section>
+
+            {/* Bottom fade for seamless transition to memories */}
+            <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black via-black/80 to-transparent z-30 pointer-events-none" />
         </div>
     );
 }
