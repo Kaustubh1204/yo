@@ -3,6 +3,7 @@ import { AboutHacknovate } from "@/components/stranger-things/AboutHacknovate";
 import { CinematicAbout } from "@/components/stranger-things/CinematicAbout";
 import { AboutTracksSection } from "@/components/stranger-things/AboutTracksSection";
 import  ContactSection  from "@/components/stranger-things/ContactSection";
+import { HacktropicaMemories } from "@/components/stranger-things/HacktropicaMemories";
 import { AudioToggle } from "@/components/shared/AudioToggle";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <AboutHacknovate />
       <CinematicAbout />
       <AboutTracksSection />
+      <HacktropicaMemories />
     </main>
   );
 }
