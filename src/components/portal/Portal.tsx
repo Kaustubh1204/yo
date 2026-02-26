@@ -2,6 +2,7 @@
 import { useState } from "react";
 import HeroScroll from "./HeroScroll";
 import { Navbar } from "../stranger-things/Navbar";
+import { CustomCursor } from "../stranger-things/CustomCursor";
 
 /**
  * Portal — Dimensional Portal canvas-sequence section.
@@ -12,6 +13,7 @@ export function Portal() {
 
     return (
         <>
+            <CustomCursor />
             <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <HeroScroll isMenuOpen={isMenuOpen} />
         </>

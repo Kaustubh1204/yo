@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/shared/SmoothScrollProvider";
+import { NavigationLogo } from "@/components/stranger-things/NavigationLogo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cormorant = Cormorant_Garamond({
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${inter.variable} ${cormorant.variable} antialiased selection:bg-red-900 selection:text-white`}
       >
         <SmoothScrollProvider>
+          <NavigationLogo />
           {children}
         </SmoothScrollProvider>
       </body>

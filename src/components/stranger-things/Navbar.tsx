@@ -22,6 +22,7 @@ const NAV_LINKS = [
 
 export function Navbar({ isMenuOpen, setIsMenuOpen, alwaysVisible = false }: NavbarProps) {
     const navContainerRef = useRef<HTMLDivElement>(null);
+    const mobileNavRef = useRef<HTMLDivElement>(null);
     const mobileMenuRef = useRef<HTMLDivElement>(null);
     const menuIconRef = useRef<SVGSVGElement>(null);
     const xIconRef = useRef<SVGSVGElement>(null);
@@ -33,45 +34,39 @@ export function Navbar({ isMenuOpen, setIsMenuOpen, alwaysVisible = false }: Nav
         const nav = navContainerRef.current;
 
         if (alwaysVisible) {
-            // On sub-pages: show immediately, no scroll dependency
-            gsap.set(nav, { opacity: 1, width: "auto", paddingLeft: "2rem", paddingRight: "2rem" });
+            gsap.set(nav, { opacity: 1, pointerEvents: "auto" });
+            gsap.set(mobileNavRef.current, { opacity: 1, pointerEvents: "auto" });
             return;
         }
 
-        const targetWidth = nav?.offsetWidth;
+        // Start hidden
+        gsap.set(nav, { opacity: 0, pointerEvents: "none" });
+        gsap.set(mobileNavRef.current, { opacity: 0, pointerEvents: "none" });
 
-        gsap.set(nav, { width: 0, paddingLeft: 0, paddingRight: 0, opacity: 0, overflow: "hidden" });
-
+        // Hide near footer
         ScrollTrigger.create({
             trigger: "footer",
             start: "top center",
-            onEnter: () => gsap.to(nav, { opacity: 0, scale: 0.95, pointerEvents: "none", duration: 0.4, ease: "power2.inOut" }),
-            onLeaveBack: () => gsap.to(nav, { opacity: 1, scale: 1, pointerEvents: "auto", duration: 0.4, ease: "power2.inOut" }),
-        });
-
-        ScrollTrigger.create({
-            start: "top top-=50",
             onEnter: () => {
-                gsap.to(nav, {
-                    width: targetWidth,
-                    paddingLeft: "2rem",
-                    paddingRight: "2rem",
-                    opacity: 1,
-                    duration: 0.3,
-                    ease: "power2.in",
-                    onComplete: () => { gsap.set(nav, { clearProps: "width,overflow" }); },
-                });
+                gsap.to(nav, { opacity: 0, scale: 0.95, pointerEvents: "none", duration: 0.4, ease: "power2.inOut" });
+                gsap.to(mobileNavRef.current, { opacity: 0, pointerEvents: "none", duration: 0.4 });
             },
             onLeaveBack: () => {
-                gsap.set(nav, { overflow: "hidden" });
-                gsap.to(nav, {
-                    width: 0,
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                    duration: 0.3,
-                    ease: "power2.in",
-                    onComplete: () => { gsap.set(nav, { opacity: 0 }); },
-                });
+                gsap.to(nav, { opacity: 1, scale: 1, pointerEvents: "auto", duration: 0.4, ease: "power2.inOut" });
+                gsap.to(mobileNavRef.current, { opacity: 1, pointerEvents: "auto", duration: 0.4 });
+            },
+        });
+
+        // Reveal after portal ends (~3200px scroll)
+        ScrollTrigger.create({
+            start: "top top-=3200",
+            onEnter: () => {
+                gsap.to(nav, { opacity: 1, pointerEvents: "auto", duration: 0.5, ease: "power2.out" });
+                gsap.to(mobileNavRef.current, { opacity: 1, pointerEvents: "auto", duration: 0.5, ease: "power2.out" });
+            },
+            onLeaveBack: () => {
+                gsap.to(nav, { opacity: 0, pointerEvents: "none", duration: 0.3, ease: "power2.in" });
+                gsap.to(mobileNavRef.current, { opacity: 0, pointerEvents: "none", duration: 0.3, ease: "power2.in" });
             },
         });
     }, [alwaysVisible]);
@@ -99,10 +94,10 @@ export function Navbar({ isMenuOpen, setIsMenuOpen, alwaysVisible = false }: Nav
     return (
         <div className="contents">
             {/* ── Desktop Nav ── */}
-            <div className="hidden md:flex fixed inset-x-0 top-6 z-[100] justify-center pointer-events-none">
+            <div className="hidden md:flex fixed inset-x-0 top-6 z-[100] justify-center">
                 <div
                     ref={navContainerRef}
-                    className="whitespace-nowrap bg-white/5 backdrop-blur-lg border border-white/10 rounded-full h-16 flex items-center justify-center pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                    className="whitespace-nowrap bg-white/5 backdrop-blur-lg border border-white/10 rounded-full h-16 flex items-center justify-center pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.5)] px-8 lg:px-12"
                 >
                     <nav
                         className="flex gap-8 lg:gap-12"
@@ -122,7 +117,7 @@ export function Navbar({ isMenuOpen, setIsMenuOpen, alwaysVisible = false }: Nav
             </div>
 
             {/* ── Mobile Nav ── */}
-            <div className="relative w-full md:hidden z-[100]">
+            <div ref={mobileNavRef} className="fixed top-0 inset-x-0 w-full md:hidden z-[100]">
                 <div className="flex justify-end items-center p-6">
                     <button
                         onClick={handleMenuToggle}

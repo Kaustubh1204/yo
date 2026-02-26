@@ -146,13 +146,6 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
             ease: "none"
         }, overlayStartTime + 20);
 
-        // Navbar fades in at the end
-        tl.fromTo(".contents > div",
-            { opacity: 0, pointerEvents: "none" },
-            { opacity: 1, pointerEvents: "auto", duration: 10, ease: "none" },
-            overlayStartTime + 25
-        );
-
     }, { dependencies: [loaded], scope: containerRef });
 
     const gpuStyle = {
@@ -170,7 +163,7 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
             style={{ height: `${FRAME_COUNT * 15}px` }}
         >
             <div
-                className="sticky top-0 h-[100vh] w-full overflow-hidden bg-black cursor-none"
+                className="sticky top-0 h-[100vh] w-full overflow-hidden bg-black cursor-none pointer-events-none"
                 style={gpuStyle}
             >
                 {/* Layer 0 — Canvas sequence */}
