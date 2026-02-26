@@ -17,7 +17,7 @@ const NAV_LINKS = [
     { label: "Team", href: "/teams" },
     { label: "Events", href: "/events" },
     { label: "Schedule", href: "/schedule" },
-    { label: "Contact Us", href: "#contact" },
+    { label: "Contact Us", href: "/contactus" },
 ];
 
 export function Navbar({ isMenuOpen, setIsMenuOpen, alwaysVisible = false }: NavbarProps) {
