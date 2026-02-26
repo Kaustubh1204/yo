@@ -138,6 +138,13 @@ export function Navbar({ isMenuOpen, setIsMenuOpen, alwaysVisible = false }: Nav
                         ref={mobileMenuRef}
                         className="absolute top-0 left-0 w-full bg-black/90 backdrop-blur-lg border-b border-white/10 overflow-hidden"
                     >
+                        {/* Close button inside the menu */}
+                        <button
+                            onClick={handleMenuToggle}
+                            className="absolute top-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform z-10"
+                        >
+                            <X size={24} />
+                        </button>
                         <nav
                             className="flex flex-col items-start px-10 pt-28 pb-10 gap-6"
                             style={{ fontFamily: "'ITC Benguiat Std', serif" }}
