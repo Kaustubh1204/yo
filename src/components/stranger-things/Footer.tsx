@@ -91,7 +91,7 @@ export function Footer() {
                 {/* Provided Texture Image Layer - The Primary Texture */}
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/assets/footer/1000_F_520711569_TXpAeak7zUHAb4mb6uRM1iDxZqQMNEbX.jpg"
+                        src="/assets/footer/Whisk_ceb0427f925ba3aa2da4a808de0a47bceg.png"
                         alt="Background Texture"
                         fill
                         className="object-cover opacity-60 contrast-125 brightness-75"
@@ -185,7 +185,7 @@ export function Footer() {
                         </h4>
                         <div className="w-full aspect-video rounded-lg overflow-hidden border border-white/10 grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9567116790937!2d77.445214775267!3d28.631027175664985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf1bb43860bb3%3A0xc67f7062400e9915!2sABESIT%20Group%20of%20Institutions!5e0!3m2!1sen!2sin!4v1740505494480!5m2!1sen!2sin"
+                                src="https://maps.google.com/maps?q=28.6342725,77.4483716&t=k&z=16&output=embed"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}

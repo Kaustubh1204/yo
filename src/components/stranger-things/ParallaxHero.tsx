@@ -155,19 +155,19 @@ export function ParallaxHero() {
                     <div className="flex flex-col sm:flex-row gap-4 mt-8 lg:mt-10 items-center md:justify-start">
                         <CustomButton
                             buttonText="Apply with Devfolio"
-                            imageSrc="/devfolio.png" 
-                            width="180px"            
-                            height="56px"            
+                            imageSrc="/devfolio.png"
+                            width="180px"
+                            height="56px"
                             iconSize="34px"
-                            gap="-2px"          
+                            gap="-2px"
                             applyInvert={true}
                         />
                         <CustomButton
                             buttonText="Join Discord"
                             imageSrc="/discord-logo.svg"
-                            width="180px"            
-                            height="56px"            
-                            iconSize="24px"          
+                            width="180px"
+                            height="56px"
+                            iconSize="24px"
                             applyInvert={false}
                         />
                     </div>

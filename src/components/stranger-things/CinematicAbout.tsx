@@ -76,14 +76,7 @@ export function CinematicAbout() {
         };
         measureE();
 
-        // ── Canvas resize ──────────────────────────────────────────────────────
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            measureE(); // recalculate E position whenever viewport changes
-        };
-        resize();
-        window.addEventListener("resize", resize);
+        let currentDrawState = { maskOpacity: 0, textScale: 1, blurPx: 0 };
 
         // ── Draw the masked frame ──────────────────────────────────────────────
         // maskOpacity  0→1   : how opaque the black overlay is
@@ -158,6 +151,16 @@ export function CinematicAbout() {
             ctx.globalAlpha = 1;
             ctx.filter = "none";
         };
+
+        // ── Canvas resize ──────────────────────────────────────────────────────
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            measureE(); // recalculate E position whenever viewport changes
+            drawMask(currentDrawState.maskOpacity, currentDrawState.textScale, currentDrawState.blurPx);
+        };
+        resize();
+        window.addEventListener("resize", resize);
 
         // ── Zoom timeline — separate ScrollTrigger so GSAP owns the interpolation ──
         // Using a timeline + scrub means GSAP handles all easing internally;
@@ -235,9 +238,11 @@ export function CinematicAbout() {
                 let textScale = 0.95 + introProgress * 0.05;  // intro ease-in
                 if (p > 0.44) {
                     const zoomP = Math.min(1, (p - 0.44) / 0.22);
-                    textScale = 1 + Math.pow(zoomP, 2.2) * 400;
+                    // Cap textScale to 100 to avoid browser rendering glitches on huge numbers
+                    textScale = Math.min(100, 1 + Math.pow(zoomP, 2.2) * 400);
                 }
 
+                currentDrawState = { maskOpacity, textScale, blurPx };
                 drawMask(maskOpacity, textScale, blurPx);
 
                 // REMOVED: Parallax image logic and GSAP set for parallaxImgRef
@@ -277,11 +282,6 @@ export function CinematicAbout() {
                 if (p >= 0.94) {
                     const t = Math.min(1, (p - 0.94) / 0.06);
                     overlayOpacity = 0.20 + t * 0.80;
-
-                    // ensure full black and prevent lower section bleed
-                    if (t >= 1) {
-                        gsap.set(fullBgRef.current, { opacity: 0 });
-                    }
                 }
 
                 gsap.set(overlayRef.current, { opacity: overlayOpacity });
