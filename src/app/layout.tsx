@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/shared/SmoothScrollProvider";
 import { NavigationLogo } from "@/components/stranger-things/NavigationLogo";
+import { Footer } from "@/components/stranger-things/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cormorant = Cormorant_Garamond({
@@ -32,6 +33,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <NavigationLogo />
           {children}
+          <Footer />
         </SmoothScrollProvider>
       </body>
     </html>
