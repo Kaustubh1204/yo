@@ -13,7 +13,6 @@ export default function Home() {
       <AboutHacknovate />
       <CinematicAbout />
       <AboutTracksSection />
-      <ContactSection/>
     </main>
   );
 }
