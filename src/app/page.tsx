@@ -2,7 +2,6 @@ import { ParallaxHero } from "@/components/stranger-things/ParallaxHero";
 import { AboutHacknovate } from "@/components/stranger-things/AboutHacknovate";
 import { CinematicAbout } from "@/components/stranger-things/CinematicAbout";
 import { AboutTracksSection } from "@/components/stranger-things/AboutTracksSection";
-import  ContactSection  from "@/components/stranger-things/ContactSection";
 import { HacktropicaMemories } from "@/components/stranger-things/HacktropicaMemories";
 import { AudioToggle } from "@/components/shared/AudioToggle";
 
