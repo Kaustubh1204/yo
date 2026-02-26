@@ -6,9 +6,30 @@ import localFont from "next/font/local";
 
 const trackFont = localFont({
     src: [
+        // Book (regular)
+        { path: "../../../public/font/BenguiatStd-Book.woff2", weight: "400", style: "normal" },
+        { path: "../../../public/font/BenguiatStd-Book.woff", weight: "400", style: "normal" },
+        { path: "../../../public/font/BenguiatStd-Book.ttf", weight: "400", style: "normal" },
+        // Book Italic
+        { path: "../../../public/font/BenguiatStd-BookItalic.woff2", weight: "400", style: "italic" },
+        { path: "../../../public/font/BenguiatStd-BookItalic.woff", weight: "400", style: "italic" },
+        { path: "../../../public/font/BenguiatStd-BookItalic.ttf", weight: "400", style: "italic" },
+        // Medium
+        { path: "../../../public/font/BenguiatStd-Medium.woff2", weight: "500", style: "normal" },
+        { path: "../../../public/font/BenguiatStd-Medium.woff", weight: "500", style: "normal" },
+        { path: "../../../public/font/BenguiatStd-Medium.ttf", weight: "500", style: "normal" },
+        // Medium Italic
+        { path: "../../../public/font/BenguiatStd-MediumItalic.woff2", weight: "500", style: "italic" },
+        { path: "../../../public/font/BenguiatStd-MediumItalic.woff", weight: "500", style: "italic" },
+        { path: "../../../public/font/BenguiatStd-MediumItalic.ttf", weight: "500", style: "italic" },
+        // Bold
         { path: "../../../public/font/BenguiatStd-Bold.woff2", weight: "700", style: "normal" },
         { path: "../../../public/font/BenguiatStd-Bold.woff", weight: "700", style: "normal" },
         { path: "../../../public/font/BenguiatStd-Bold.ttf", weight: "700", style: "normal" },
+        // Bold Italic
+        { path: "../../../public/font/BenguiatStd-BoldItalic.woff2", weight: "700", style: "italic" },
+        { path: "../../../public/font/BenguiatStd-BoldItalic.woff", weight: "700", style: "italic" },
+        { path: "../../../public/font/BenguiatStd-BoldItalic.ttf", weight: "700", style: "italic" },
     ],
     variable: "--font-track",
     display: "swap",
@@ -61,7 +82,10 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
     return (
-        <footer className={`relative w-full bg-black text-white pt-24 md:pt-32 pb-6 md:pb-8 px-8 md:px-16 overflow-hidden ${trackFont.variable}`}>
+        <footer
+            className={`relative w-full bg-black text-white pt-24 md:pt-32 pb-6 md:pb-8 px-8 md:px-16 overflow-hidden ${trackFont.variable}`}
+            style={{ fontFamily: "var(--font-track), serif" }}
+        >
             {/* Stranger Things "Upside Down" Atmospheric Background */}
             <div className="absolute inset-0 z-0 overflow-hidden bg-black">
                 {/* Provided Texture Image Layer - The Primary Texture */}

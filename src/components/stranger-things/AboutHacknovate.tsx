@@ -166,7 +166,7 @@ export function AboutHacknovate() {
                     ref={textRef}
                     className="absolute text-white/90 text-[1.6rem] md:text-[2.5rem] lg:text-[3.25rem] leading-[1.2] font-medium tracking-tight text-justify max-w-[1200px] w-full px-4 will-change-[transform,opacity]"
                     style={{
-                        fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+                        fontFamily: "'ITC Benguiat Std', serif",
                         textWrap: "balance" as any
                     }}
                 >
