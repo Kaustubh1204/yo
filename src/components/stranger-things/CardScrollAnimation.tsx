@@ -168,7 +168,7 @@ export function CardScrollAnimation() {
 
     return (
         <div className="card-scroll-root">
-            {/* Thin top blur positioned above the Prizes heading for flow from Tracks section */}
+            {/* Thin top blur positioned above the Cards heading for flow from Tracks section */}
             <div className="absolute top-0 left-0 w-full h-6 bg-gradient-to-b from-black to-transparent backdrop-blur-[4px] z-30 pointer-events-none" />
 
             {/* Background layer */}
@@ -177,8 +177,8 @@ export function CardScrollAnimation() {
             <div className="card-scroll-overlay"></div>
 
             <section className="card-section sticky" ref={stickyRef}>
-                <div className="prizes-heading">
-                    <h2><span>Prizes</span></h2>
+                <div className="cards-heading">
+                    <h2><span>Cards</span></h2>
                 </div>
                 <div className="card-container" ref={cardContainerRef}>
                     {CARDS.map((card, idx) => (
