@@ -26,6 +26,7 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
     const treesRightRef = useRef<HTMLDivElement>(null);
     const kidsRef = useRef<HTMLDivElement>(null);
     const heroUIRef = useRef<HTMLDivElement>(null);
+    const sectionTransitionRef = useRef<HTMLDivElement>(null);
 
     const lastRenderedIndex = useRef<number>(-1);
 
@@ -36,7 +37,8 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
     useEffect(() => {
         const handleResize = () => {
             if (canvasRef.current) {
-                const dpr = window.devicePixelRatio || 1;
+                // Cap DPR at 1.5 to reduce pixel density for better performance
+                const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
                 canvasRef.current.width = window.innerWidth * dpr;
                 canvasRef.current.height = window.innerHeight * dpr;
                 lastRenderedIndex.current = -1; // force redraw
@@ -78,33 +80,35 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
                 trigger: containerRef.current,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 0.8,
+                scrub: 1.5, // Even smoother momentum
             },
         });
 
         const frameObj = { frame: 0 };
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext("2d", { alpha: false });
+
+        if (ctx) {
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "low"; // Lower quality = better performance/smoothness
+        }
 
         // 1. Frame progression mapping EXACTLY 1:1 on the timeline duration.
-        // Duration = 239 total "units" of time
         tl.to(frameObj, {
             frame: LAST_FRAME_INDEX,
-            duration: LAST_FRAME_INDEX, // Map animation duration exactly to frame count
+            duration: LAST_FRAME_INDEX,
             ease: "none",
             onUpdate: () => {
                 const index = Math.round(frameObj.frame);
                 const safeIndex = Math.min(Math.max(index, 0), LAST_FRAME_INDEX);
 
-                if (safeIndex !== lastRenderedIndex.current && images[safeIndex] && canvasRef.current) {
-                    const ctx = canvasRef.current.getContext("2d", { alpha: false });
-                    if (ctx) {
-                        ctx.imageSmoothingEnabled = true;
-                        ctx.imageSmoothingQuality = "medium";
-                        drawFrame(ctx, images[safeIndex], canvasRef.current);
-                        lastRenderedIndex.current = safeIndex;
-                    }
+                if (safeIndex !== lastRenderedIndex.current && images[safeIndex] && canvas && ctx) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawFrame(ctx, images[safeIndex], canvas);
+                    lastRenderedIndex.current = safeIndex;
                 }
             }
-        }, 0); // Start at abstract time 0
+        }, 0);
 
         // Overlay animations — start earlier and complete quicker
         const overlayStartTime = LAST_FRAME_INDEX - 40;
@@ -146,6 +150,16 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
             ease: "none"
         }, overlayStartTime + 20);
 
+        // Smooth dark-red section transition — fades in near the END of scroll
+        // so there's no hard cut when the Hero section gives way to the next section
+        const transitionStartTime = LAST_FRAME_INDEX - 15;
+        gsap.set(sectionTransitionRef.current, { opacity: 0 });
+        tl.to(sectionTransitionRef.current, {
+            opacity: 1,
+            duration: 18,
+            ease: "power2.inOut",
+        }, transitionStartTime);
+
     }, { dependencies: [loaded], scope: containerRef });
 
     const gpuStyle = {
@@ -170,7 +184,24 @@ export default function HeroScroll({ isMenuOpen }: HeroScrollProps) {
                 <canvas
                     ref={canvasRef}
                     className="absolute top-0 left-0 w-full h-full pointer-events-none"
-                    style={{ zIndex: 0, display: "block" }}
+                    style={{
+                        zIndex: 0,
+                        display: "block",
+                        willChange: "transform",
+                        transform: "translateZ(0)"
+                    }}
+                />
+
+                {/* Section Transition Overlay — dark-red gradient that blends Hero into the next section */}
+                <div
+                    ref={sectionTransitionRef}
+                    className="absolute bottom-0 left-0 w-full pointer-events-none"
+                    style={{
+                        zIndex: 50,
+                        height: "55vh",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(60,0,0,0.25) 30%, rgba(80,0,0,0.65) 65%, rgba(10,0,0,0.92) 100%)",
+                        ...gpuStyle,
+                    }}
                 />
 
                 {/* Layer 1 — Cinematic Black Bars */}

@@ -17,6 +17,7 @@ const CARDS = [
         id: "card-1",
         src: `${IMG}/1.jpeg`,
         mobileSrc: `${IMG}/res1.png`,
+        imgPosition: "center top",
         label: "(01)",
         heading: "Online",
         p1: "1st: 15000/-",
@@ -26,6 +27,7 @@ const CARDS = [
         id: "card-2",
         src: `${IMG}/2.jpeg`,
         mobileSrc: `${IMG}/res2.png`,
+        imgPosition: "center top",
         label: "(02)",
         heading: "Offline",
         p1: "1st: 35000/-",
@@ -35,6 +37,7 @@ const CARDS = [
         id: "card-3",
         src: `${IMG}/3.jpeg`,
         mobileSrc: `${IMG}/res3.png`,
+        imgPosition: "60% top",
         label: "(03)",
         heading: "Best Beginner",
         p1: "4000/-",
@@ -80,7 +83,7 @@ export function CardScrollAnimation() {
             if (!mc1 || !mc2 || !mc3 || !container) return;
 
             const mobileCards = [mc1, mc2, mc3];
-            const scrollDistance = window.innerHeight * 0.9;
+            const scrollDistance = window.innerHeight * 1.5;
 
             gsap.set([mobileCards, container], { clearProps: "all" });
 
@@ -96,10 +99,10 @@ export function CardScrollAnimation() {
                 },
             });
 
-            tl.to(container, { gap: "1.25rem", duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
-                .to(mobileCards, { borderRadius: "16px", duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
-                .to(mc1, { y: -12, duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
-                .to(mc3, { y: 12, duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+            tl.to(container, { gap: "1.5rem", duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mobileCards, { borderRadius: "14px", duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mc1, { y: -10, duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
+                .to(mc3, { y: 10, duration: 0.3, ease: "power2.inOut", force3D: true }, 0)
                 .to(mobileCards, { rotationY: 180, duration: 0.35, ease: "power1.inOut", stagger: 0.05, force3D: true }, 0.2);
 
             return () => {
@@ -117,7 +120,7 @@ export function CardScrollAnimation() {
 
             const allCards = [c1, c2, c3];
             const outerCards = [c1, c3];
-            const scrollDistance = window.innerHeight * 0.9;
+            const scrollDistance = window.innerHeight * 1.5;
 
             const tl = gsap.timeline({
                 scrollTrigger: {
@@ -132,11 +135,11 @@ export function CardScrollAnimation() {
             });
 
             // Width Animation (give more room for text)
-            tl.to(container, { width: "85%", ease: "none", duration: 0.1, force3D: true }, 0);
+            tl.to(container, { width: "68%", ease: "none", duration: 0.1, force3D: true }, 0);
 
             // Gap + Border Radius (at 12%)
-            tl.to(container, { gap: "24px", ease: "power3.out", duration: 0.08, force3D: true }, 0.12)
-                .to(allCards, { borderRadius: "28px", ease: "power3.out", duration: 0.08, force3D: true }, 0.12);
+            tl.to(container, { gap: "28px", ease: "power3.out", duration: 0.08, force3D: true }, 0.12)
+                .to(allCards, { borderRadius: "22px", ease: "power3.out", duration: 0.08, force3D: true }, 0.12);
 
             // Flip Animation (at 25% → done by 60%)
             tl.to(allCards, { rotationY: 180, ease: "power3.inOut", stagger: 0.05, duration: 0.35, force3D: true }, 0.25)
@@ -165,6 +168,9 @@ export function CardScrollAnimation() {
 
     return (
         <div className="card-scroll-root">
+            {/* Thin top blur positioned above the Prizes heading for flow from Tracks section */}
+            <div className="absolute top-0 left-0 w-full h-6 bg-gradient-to-b from-black to-transparent backdrop-blur-[4px] z-30 pointer-events-none" />
+
             {/* Background layer */}
             <div className="card-scroll-bg"></div>
             {/* Overlay for readability */}
@@ -190,6 +196,7 @@ export function CardScrollAnimation() {
                                     alt={`Card ${idx + 1}`}
                                     className="card-front-mobile-img"
                                     loading="lazy"
+                                    style={{ objectPosition: card.imgPosition }}
                                 />
                                 {/* Desktop image */}
                                 <Image
@@ -197,7 +204,7 @@ export function CardScrollAnimation() {
                                     alt={`Card ${idx + 1}`}
                                     fill
                                     sizes="(max-width: 1024px) 100vw, 33vw"
-                                    style={{ objectFit: "cover" }}
+                                    style={{ objectFit: "cover", objectPosition: card.imgPosition }}
                                     priority={idx === 1}
                                     className="card-front-desktop-img"
                                 />
@@ -208,7 +215,9 @@ export function CardScrollAnimation() {
                                             className="slice"
                                             style={{
                                                 backgroundImage: `url(${card.src})`,
-                                                backgroundPosition: `${i * 25}% 0%`,
+                                                backgroundPosition: `${i * 25}% center`,
+                                                backgroundSize: "cover",
+                                                backgroundRepeat: "no-repeat",
                                             }}
                                         ></div>
                                     ))}
@@ -220,7 +229,7 @@ export function CardScrollAnimation() {
                                     src={card.src}
                                     alt={`Card ${idx + 1} Back`}
                                     fill
-                                    style={{ objectFit: "cover" }}
+                                    style={{ objectFit: "cover", objectPosition: card.imgPosition }}
                                     className="back-image back-image-desktop"
                                 />
                                 {/* Mobile back-image */}
@@ -230,6 +239,7 @@ export function CardScrollAnimation() {
                                     alt={`Card ${idx + 1} Back`}
                                     className="back-image back-image-mobile"
                                     loading="lazy"
+                                    style={{ objectPosition: card.imgPosition }}
                                 />
                                 <div className="back-overlay"></div>
                                 <div className="back-content">
@@ -244,8 +254,8 @@ export function CardScrollAnimation() {
                 </div>
             </section>
 
-            {/* Bottom fade for seamless transition to memories */}
-            <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black via-black/80 to-transparent z-30 pointer-events-none" />
+            {/* Thin bottom blur for seamless transition to memories — "flow" effect */}
+            <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-black to-transparent backdrop-blur-[4px] z-30 pointer-events-none" />
         </div>
     );
 }

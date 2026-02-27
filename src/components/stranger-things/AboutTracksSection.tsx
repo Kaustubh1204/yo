@@ -241,8 +241,8 @@ export function AboutTracksSection() {
             className="absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
             style={{ background: 'linear-gradient(to top, rgba(120,0,0,0.18), transparent)' }}
           />
-          {/* Bottom fade for smooth footer transition */}
-          <div className="absolute bottom-0 left-0 right-0 h-64 z-20 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+          {/* Thin bottom fade for flow transition to Cards */}
+          <div className="absolute bottom-0 left-0 right-0 h-8 z-20 bg-gradient-to-t from-black to-transparent backdrop-blur-[4px] pointer-events-none" />
         </div>
 
         {/* ── Fixed Heading — outside panels, stays static ── */}

@@ -27,7 +27,13 @@ export function useCanvasSequence() {
                 offsetY = 0;
             }
 
-            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+            ctx.drawImage(
+                img,
+                Math.round(offsetX),
+                Math.round(offsetY),
+                Math.round(drawWidth),
+                Math.round(drawHeight)
+            );
         },
         []
     );

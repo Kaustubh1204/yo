@@ -143,6 +143,15 @@ export function AboutHacknovate() {
                 <div className="absolute inset-0 bg-black/30" />
             </div>
 
+            {/* Dark-red top blending gradient — picks up from Hero section exit */}
+            <div
+                className="absolute top-0 left-0 w-full pointer-events-none z-[3]"
+                style={{
+                    height: "30vh",
+                    background: "linear-gradient(to bottom, rgba(10,0,0,0.88) 0%, rgba(60,0,0,0.3) 50%, transparent 100%)",
+                }}
+            />
+
             {/* 🔥 Ambient moving glow layer — Reduced blur for performance */}
             <div
                 ref={glowRef}
